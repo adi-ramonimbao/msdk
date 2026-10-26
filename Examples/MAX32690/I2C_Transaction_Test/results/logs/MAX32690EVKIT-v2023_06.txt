@@ -1,0 +1,39 @@
+
+***** I2C Transaction Test *****
+MSDK: v2023_06
+I2C2 at 100000 Hz, MAX9867 at 0x18, register 0xFF (expect 0x42)
+1000 iterations per case
+
+[ 1] blocking read, blocking read
+  PASS  1000/1000 ok
+[ 2] blocking restart, blocking read
+  PASS  1000/1000 ok
+        timed call: 21.6..21.6 bit times (one read is about 20; a duplicated read adds about 19)
+[ 3] blocking NACK, blocking read
+  PASS  1000/1000 ok
+[ 4] blocking restart, blocking write
+  PASS  1000/1000 ok
+[ 5] blocking restart, blocking write+read
+  PASS  1000/1000 ok
+[ 6] async read, blocking read
+  HANG  at iteration #0 (watchdog reset)
+[ 7] async read, async read
+  FAIL  0/1000 ok, 1 errors (first #0 async 2 done: E_TIME_OUT (-10)), stopped at #0: completion callback never came
+[ 8] async NACK, blocking read
+  FAIL  0/1000 ok, 2 errors (first #0 async start: E_BUSY (-6)), stopped at #0: completion callback never came
+[ 9] blocking restart, async read
+  FAIL  0/1000 ok, 2 errors (first #0 async start: E_BUSY (-6)), bus left busy 1 times, stopped at #0: completion callback never came
+[10] blocking restart, async write
+  FAIL  0/1000 ok, 2 errors (first #0 async start: E_BUSY (-6)), bus left busy 1 times, stopped at #0: completion callback never came
+[11] DMA read, blocking read
+  FAIL  0/1000 ok, 1 errors (first #1 DMA done: E_TIME_OUT (-10)), 1 wrong values, stopped at #1: completion callback never came
+[12] DMA read, DMA read
+  FAIL  0/1000 ok, 2 errors (first #0 DMA 1 done: E_TIME_OUT (-10)), stopped at #0: completion callback never came
+[13] DMA NACK, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 DMA NACK read: E_NO_ERROR (0))
+[14] blocking restart, DMA read
+  FAIL  0/1000 ok, 1 errors (first #0 DMA done: E_TIME_OUT (-10)), bus left busy 1 times, stopped at #0: completion callback never came
+        timed call: 1773.0..1773.0 bit times (one read is about 20; a duplicated read adds about 19)
+
+Summary: 5 PASS, 8 FAIL, 1 HANG of 14
+Example Failed

@@ -1,0 +1,40 @@
+
+***** I2C Transaction Test *****
+MSDK: CFS-2.3.0
+I2C1 at 100000 Hz, MAX9867 at 0x18, register 0xFF (expect 0x42)
+1000 iterations per case
+
+[ 1] blocking read, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 read 2: E_BUSY (-6))
+[ 2] blocking restart, blocking read
+  FAIL  0/1000 ok, 1999 errors (first #0 read: E_BUSY (-6)), bus left busy 1000 times
+        timed call: 0.1..0.1 bit times (one read is about 20; a duplicated read adds about 19)
+[ 3] blocking NACK, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 read: E_BUSY (-6))
+[ 4] blocking restart, blocking write
+  FAIL  0/1000 ok, 1999 errors (first #0 write: E_BUSY (-6)), bus left busy 1000 times
+[ 5] blocking restart, blocking write+read
+  FAIL  0/1000 ok, 1999 errors (first #0 write+read: E_BUSY (-6)), bus left busy 1000 times
+[ 6] async read, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 blocking read: E_BUSY (-6))
+[ 7] async read, async read
+  PASS  1000/1000 ok
+[ 8] async NACK, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 blocking read: E_BUSY (-6))
+        note: async NACK write completed with E_NO_ERROR (1000/1000)
+[ 9] blocking restart, async read
+  HANG  at iteration #0 (watchdog reset)
+[10] blocking restart, async write
+  HANG  at iteration #0 (watchdog reset)
+[11] DMA read, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 blocking read: E_BUSY (-6))
+[12] DMA read, DMA read
+  HANG  at iteration #0 (watchdog reset)
+[13] DMA NACK, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 blocking read: E_BUSY (-6))
+[14] blocking restart, DMA read
+  PASS  1000/1000 ok
+        timed call: 20.4..20.5 bit times (one read is about 20; a duplicated read adds about 19)
+
+Summary: 2 PASS, 9 FAIL, 3 HANG of 14
+Example Failed

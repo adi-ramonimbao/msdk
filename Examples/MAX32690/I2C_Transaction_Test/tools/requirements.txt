@@ -1,0 +1,7 @@
+# Python packages for the capture tools (use a virtual environment).
+# pylibiio is a ctypes binding: it needs the libiio C library installed
+# (e.g. Ubuntu libiio0), and its version must match (0.25 here).
+pylibiio==0.25
+numpy
+matplotlib
+pyserial

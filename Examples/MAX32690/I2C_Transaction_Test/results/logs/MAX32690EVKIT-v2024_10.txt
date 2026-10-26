@@ -1,0 +1,40 @@
+
+***** I2C Transaction Test *****
+MSDK: v2024_10
+I2C2 at 100000 Hz, MAX9867 at 0x18, register 0xFF (expect 0x42)
+1000 iterations per case
+
+[ 1] blocking read, blocking read
+  PASS  1000/1000 ok
+[ 2] blocking restart, blocking read
+  PASS  1000/1000 ok
+        timed call: 21.0..21.0 bit times (one read is about 20; a duplicated read adds about 19)
+[ 3] blocking NACK, blocking read
+  HANG  at iteration #0 (watchdog reset)
+[ 4] blocking restart, blocking write
+  PASS  1000/1000 ok
+[ 5] blocking restart, blocking write+read
+  PASS  1000/1000 ok
+[ 6] async read, blocking read
+  PASS  1000/1000 ok
+[ 7] async read, async read
+  PASS  1000/1000 ok
+[ 8] async NACK, blocking read
+  FAIL  0/1000 ok, 1000 errors (first #0 blocking read: E_COMM_ERR (-9))
+        note: async NACK write completed with E_NO_ERROR (1000/1000)
+[ 9] blocking restart, async read
+  PASS  1000/1000 ok
+[10] blocking restart, async write
+  FAIL  0/1000 ok, bus left busy 1000 times
+[11] DMA read, blocking read
+  FAIL  0/1000 ok, 1000 wrong values
+[12] DMA read, DMA read
+  PASS  1000/1000 ok
+[13] DMA NACK, blocking read
+  HANG  at iteration #0 (watchdog reset)
+[14] blocking restart, DMA read
+  PASS  1000/1000 ok
+        timed call: 21.7..22.2 bit times (one read is about 20; a duplicated read adds about 19)
+
+Summary: 9 PASS, 3 FAIL, 2 HANG of 14
+Example Failed
